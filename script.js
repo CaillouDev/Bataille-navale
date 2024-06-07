@@ -741,8 +741,7 @@ const targetEnnemyShip = async (cell) => {
           document
             .getElementById("ennemy-board")
             .querySelectorAll("td:not(.hit)")
-            .filter((cell) => !cell.classList.contains("missed"))
-            .forEach((cell) => cell.classList.remove("deactivated"));
+            .forEach((cell) => {if(!cell.classList.contains("missed")){cell.classList.remove("deactivated")}});
           if (myBoard.querySelectorAll("td.hit, td.sunk").length === 30) {
             return scenario("Computer victory");
           }
