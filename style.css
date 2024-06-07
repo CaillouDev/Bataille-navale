@@ -1,0 +1,107 @@
+#game-screen {
+    display:flex;
+    justify-content: center;
+}
+
+#text-info {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#script-go-next{
+    display:block;
+    margin:0 auto
+}
+
+#game-screen{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+}
+
+#my-fleet{
+    visibility:hidden;
+    font-size: 1.1rem;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    border-radius: 0.5rem;
+    padding:0.5rem 0.8rem;
+    border:none;
+    font-size: 1rem;
+    
+}
+
+#my-fleet button:not(.deactivate):hover{
+    outline: 2px solid #51534E;
+}
+
+#my-fleet>div:last-of-type>p {
+    width:12rem;
+}
+
+.board {
+    width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
+    border: 5px solid #d5d5d5;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hidden {
+    display:none !important
+}
+
+table {
+    width:30rem;
+    height: 30rem;
+    border-spacing:0;
+    border-collapse: collapse;
+}
+
+th {
+    border:1px solid black
+}
+
+tr {
+    height:3rem;
+    min-height: 3rem;
+    max-height: 3rem;
+}
+
+th, td{
+    width:3rem;
+    min-width: 3rem;
+    max-width:3rem;
+    border:1px solid black
+}
+
+td:hover{
+    cursor:crosshair
+}
+
+td:not(.deactivated, .hit, .target, .sunk, .missed):hover{
+    outline:0.2rem solid lightblue;
+    outline-offset:-0.2rem
+}
+
+td.missed, td.hit, td.deactivated{
+    cursor:auto
+}
+
+button:not(.deactivate){
+    cursor:pointer
+}
+
+#my-board .occupied{
+    background-color: #90c0fe;
+}
+
+#my-board .fullTorpilleur, .fullContre-torpilleurs, .fullCroiseur, .fullPorte-avions{
+    background-color: #51534E !important
+}
