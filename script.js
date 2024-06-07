@@ -728,14 +728,14 @@ const targetEnnemyShip = async (cell) => {
         document.getElementById("msg-box").innerText += `\nManqué !`;
         cell.style.backgroundColor = "lightblue";
       }
-    }, 2000);
+    }, 1500);
     setTimeout(() => {
       if (ennemyBoard.querySelectorAll("td.hit").length === 30) {
         return scenario("Player victory");
       } else {
         setTimeout(
           () => computerTurn(document.getElementById("msg-box")),
-          3500
+          2500
         );
         setTimeout(() => {
           document
@@ -746,7 +746,7 @@ const targetEnnemyShip = async (cell) => {
           if (myBoard.querySelectorAll("td.hit, td.sunk").length === 30) {
             return scenario("Computer victory");
           }
-        }, 6500);
+        }, 4500);
       }
     }, 1000);
   }
