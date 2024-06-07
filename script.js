@@ -752,7 +752,7 @@ const targetEnnemyShip = async (cell) => {
 };
 
 // --------------------------------------------------------
-// Scénario
+// Déroulement scénario
 // --------------------------------------------------------
 const scenario = (w) => {
   const gameInfo = document.getElementById("text-info");
