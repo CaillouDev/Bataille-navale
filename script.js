@@ -806,7 +806,6 @@ const scenario = (w) => {
           (nextBtn.innerText = "Se préparer à l'impact"));
       break;
     case 6:
-      resetGame.style.display = "block";
       document.getElementById("card-ships").classList.add("hidden");
       document.getElementById("msg-box").innerText = "";
       nextBtn.classList.add("hidden");
