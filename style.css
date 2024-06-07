@@ -102,6 +102,8 @@ button:not(.deactivate){
     background-color: #90c0fe;
 }
 
-#my-board .fullTorpilleur, .fullContre-torpilleurs, .fullCroiseur, .fullPorte-avions{
-    background-color: #51534E !important
+#my-board .fullTorpilleur,#my-board .fullContre-torpilleurs,#my-board .fullCroiseur,#my-board .fullPorte-avions{
+    background-color: #51534E
 }
+
+
