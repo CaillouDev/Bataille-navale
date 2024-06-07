@@ -245,7 +245,7 @@ const testToBecomeSunken = () => {
         myBoard.querySelectorAll("td.hit")[i].classList.remove("target");
         myBoard.querySelectorAll("td.hit")[i].classList.add("sunk");
         myBoard.querySelectorAll("td.hit")[i].classList.remove("hit");
-      } 
+      }
     }
   }
 };
@@ -563,7 +563,7 @@ const placeEnnemyShips = (numberOfShips, numberOfCells) => {
           }
         }
         solution = allCases[Math.floor(Math.random() * allCases.length)];
-        secondCell = document.getElementById(`${solution[0]}Ennemy`);;
+        secondCell = document.getElementById(`${solution[0]}Ennemy`);
         thirdCell = document.getElementById(`${solution[1]}Ennemy`);
         thirdCell.classList.add("occupied");
         fourthCell = document.getElementById(`${solution[2]}Ennemy`);
@@ -735,19 +735,20 @@ const targetEnnemyShip = async (cell) => {
       } else {
         setTimeout(
           () => computerTurn(document.getElementById("msg-box")),
-          4500
+          3500
         );
         setTimeout(() => {
           document
             .getElementById("ennemy-board")
-            .querySelectorAll("td")
+            .querySelectorAll("td:not(.hit)")
+            .filter((cell) => !cell.classList.contains("missed"))
             .forEach((cell) => cell.classList.remove("deactivated"));
           if (myBoard.querySelectorAll("td.hit, td.sunk").length === 30) {
             return scenario("Computer victory");
           }
-        }, 7500);
+        }, 6500);
       }
-    }, 2000);
+    }, 1000);
   }
 };
 
