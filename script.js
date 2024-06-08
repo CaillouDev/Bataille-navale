@@ -315,21 +315,17 @@ const computerTurn = async (box) => {
   const target = possibilities[randomIndex];
   target.classList.add("target");
   box.innerText = `L'ennemi vise la case ${target.name}.`;
-  // addSoundEffect("./Media/shot-away.mp3",1)
+  addSoundEffect("./Media/shot-away.mp3", 1);
   setTimeout(() => {
     if (target.classList.contains("occupied")) {
       target.style.backgroundColor = "red";
       target.classList.add("hit");
       box.innerText += `\nTouché !`;
-      const hitOrMissed = true
-      sessionStorage.setItem("hitOrMissed",JSON.stringify(hitOrMissed))
-      // addSoundEffect("./Media/explosion.mp3", 0.5);
+      addSoundEffect("./Media/explosion.mp3", 0.5);
     } else {
       target.style.backgroundColor = "lightblue";
       box.innerText += `\nRaté !`;
-      const hitOrMissed = false
-      sessionStorage.setItem("hitOrMissed",JSON.stringify(hitOrMissed))
-      // addSoundEffect("./Media/water-explosion.mp3", 0.5);
+      addSoundEffect("./Media/water-explosion.mp3", 0.5);
     }
   }, 3000);
 };
@@ -758,16 +754,10 @@ const targetEnnemyShip = async (cell) => {
       if (ennemyBoard.querySelectorAll("td.hit").length === 30) {
         return scenario("Player victory");
       } else {
-        setTimeout(() => {
-          computerTurn(document.getElementById("msg-box"));
-          addSoundEffect("./Media/shot-away.mp3", 1);
-        }, 3500);
-        setTimeout(()=>{
-          const hitOrMissed = JSON.parse(sessionStorage.getItem("hitOrMissed"))
-          if (hitOrMissed===true){
-            addSoundEffect("./Media/explosion.mp3", 0.4);
-          } else {addSoundEffect("./Media/water-explosion.mp3", 0.4);}
-        },6500)
+        setTimeout(
+          () => computerTurn(document.getElementById("msg-box")),
+          3500
+        );
         setTimeout(() => {
           document
             .getElementById("ennemy-board")
