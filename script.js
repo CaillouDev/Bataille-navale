@@ -315,14 +315,17 @@ const computerTurn = async (box) => {
   const target = possibilities[randomIndex];
   target.classList.add("target");
   box.innerText = `L'ennemi vise la case ${target.name}.`;
+  addSoundEffect("./Media/shot-away.mp3")
   setTimeout(() => {
     if (target.classList.contains("occupied")) {
       target.style.backgroundColor = "red";
       target.classList.add("hit");
       box.innerText += `\nTouché !`;
+      addSoundEffect("./Media/explosion.mp3")
     } else {
       target.style.backgroundColor = "lightblue";
       box.innerText += `\nRaté !`;
+      addSoundEffect("./Media/water-explosion.mp3")
     }
   }, 3000);
 };
@@ -705,11 +708,26 @@ const lockButtonsOfMyFleetAndUpdateNumbers = (thisShipName) => {
 };
 
 // --------------------------------------------------------
+// Fonction add sound effect
+// --------------------------------------------------------
+const addSoundEffect = (sound) => {
+  const soundEffect = document.createElement("audio")
+  soundEffect.src=sound
+  soundEffect.style.display="none"
+  soundEffect.setAttribute("autoplay","autoplay")
+  document.getElementById("boards").appendChild(soundEffect)
+  setTimeout(()=>{
+    soundEffect.remove()
+  },2000)
+}
+
+// --------------------------------------------------------
 // Fonction pour cibler les navires de l'ordinateur
 // --------------------------------------------------------
 
 const targetEnnemyShip = async (cell) => {
   if (!cell.classList.contains("deactivated")) {
+    addSoundEffect("./Media/cannon-fire.mp3")
     document.getElementById(
       "msg-box"
     ).innerText = `Vous visez l'emplacement ${cell.name}.`;
@@ -721,21 +739,23 @@ const targetEnnemyShip = async (cell) => {
     setTimeout(() => {
       if (cell.classList.contains("occupied")) {
         cell.classList.add("hit");
+        addSoundEffect("./Media/explosion.mp3")
         document.getElementById("msg-box").innerText += `\nTouché !`;
         cell.style.backgroundColor = "red";
       } else {
         cell.classList.add("missed");
+        addSoundEffect("./Media/water-explosion.mp3")
         document.getElementById("msg-box").innerText += `\nManqué !`;
         cell.style.backgroundColor = "lightblue";
       }
-    }, 1500);
+    }, 3000);
     setTimeout(() => {
       if (ennemyBoard.querySelectorAll("td.hit").length === 30) {
         return scenario("Player victory");
       } else {
         setTimeout(
           () => computerTurn(document.getElementById("msg-box")),
-          2500
+          3500
         );
         setTimeout(() => {
           document
@@ -745,9 +765,9 @@ const targetEnnemyShip = async (cell) => {
           if (myBoard.querySelectorAll("td.hit, td.sunk").length === 30) {
             return scenario("Computer victory");
           }
-        }, 4500);
+        }, 5500);
       }
-    }, 1000);
+    }, 2000);
   }
 };
 
