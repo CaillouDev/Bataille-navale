@@ -321,11 +321,11 @@ const computerTurn = async (box) => {
       target.style.backgroundColor = "red";
       target.classList.add("hit");
       box.innerText += `\nTouché !`;
-      addSoundEffect("./Media/explosion.mp3")
+      addSoundEffect("./Media/explosion.mp3",0.75)
     } else {
       target.style.backgroundColor = "lightblue";
       box.innerText += `\nRaté !`;
-      addSoundEffect("./Media/water-explosion.mp3")
+      addSoundEffect("./Media/water-explosion.mp3",0.8)
     }
   }, 3000);
 };
@@ -710,9 +710,10 @@ const lockButtonsOfMyFleetAndUpdateNumbers = (thisShipName) => {
 // --------------------------------------------------------
 // Fonction add sound effect
 // --------------------------------------------------------
-const addSoundEffect = (sound) => {
+const addSoundEffect = (sound, volume) => {
   const soundEffect = document.createElement("audio")
   soundEffect.src=sound
+  Object.volume=volume
   soundEffect.style.display="none"
   soundEffect.setAttribute("autoplay","autoplay")
   document.getElementById("boards").appendChild(soundEffect)
@@ -727,7 +728,7 @@ const addSoundEffect = (sound) => {
 
 const targetEnnemyShip = async (cell) => {
   if (!cell.classList.contains("deactivated")) {
-    addSoundEffect("./Media/cannon-fire.mp3")
+    addSoundEffect("./Media/cannon-fire.mp3",0.75)
     document.getElementById(
       "msg-box"
     ).innerText = `Vous visez l'emplacement ${cell.name}.`;
@@ -739,12 +740,12 @@ const targetEnnemyShip = async (cell) => {
     setTimeout(() => {
       if (cell.classList.contains("occupied")) {
         cell.classList.add("hit");
-        addSoundEffect("./Media/explosion.mp3")
+        addSoundEffect("./Media/explosion.mp3",0.75)
         document.getElementById("msg-box").innerText += `\nTouché !`;
         cell.style.backgroundColor = "red";
       } else {
         cell.classList.add("missed");
-        addSoundEffect("./Media/water-explosion.mp3")
+        addSoundEffect("./Media/water-explosion.mp3",0.8)
         document.getElementById("msg-box").innerText += `\nManqué !`;
         cell.style.backgroundColor = "lightblue";
       }
