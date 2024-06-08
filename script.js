@@ -765,7 +765,7 @@ const targetEnnemyShip = async (cell) => {
           if (myBoard.querySelectorAll("td.hit, td.sunk").length === 30) {
             return scenario("Computer victory");
           }
-        }, 5500);
+        }, 6500);
       }
     }, 2000);
   }
