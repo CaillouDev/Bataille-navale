@@ -315,17 +315,21 @@ const computerTurn = async (box) => {
   const target = possibilities[randomIndex];
   target.classList.add("target");
   box.innerText = `L'ennemi vise la case ${target.name}.`;
-  addSoundEffect("./Media/shot-away.mp3",1)
+  // addSoundEffect("./Media/shot-away.mp3",1)
   setTimeout(() => {
     if (target.classList.contains("occupied")) {
       target.style.backgroundColor = "red";
       target.classList.add("hit");
       box.innerText += `\nTouché !`;
-      addSoundEffect("./Media/explosion.mp3",0.5)
+      const hitOrMissed = true
+      sessionStorage.setItem("hitOrMissed",JSON.stringify(hitOrMissed))
+      // addSoundEffect("./Media/explosion.mp3", 0.5);
     } else {
       target.style.backgroundColor = "lightblue";
       box.innerText += `\nRaté !`;
-      addSoundEffect("./Media/water-explosion.mp3",0.5)
+      const hitOrMissed = false
+      sessionStorage.setItem("hitOrMissed",JSON.stringify(hitOrMissed))
+      // addSoundEffect("./Media/water-explosion.mp3", 0.5);
     }
   }, 3000);
 };
@@ -711,16 +715,16 @@ const lockButtonsOfMyFleetAndUpdateNumbers = (thisShipName) => {
 // Fonction add sound effect
 // --------------------------------------------------------
 const addSoundEffect = (sound, volume) => {
-  const soundEffect = document.createElement("audio")
-  soundEffect.src=sound
-  soundEffect.volume=volume
-  soundEffect.style.display="none"
-  soundEffect.setAttribute("autoplay","autoplay")
-  document.getElementById("boards").appendChild(soundEffect)
-  setTimeout(()=>{
-    soundEffect.remove()
-  },2000)
-}
+  const soundEffect = document.createElement("audio");
+  soundEffect.src = sound;
+  soundEffect.volume = volume;
+  soundEffect.style.display = "none";
+  soundEffect.setAttribute("autoplay", "autoplay");
+  document.getElementById("boards").appendChild(soundEffect);
+  setTimeout(() => {
+    soundEffect.remove();
+  }, 2000);
+};
 
 // --------------------------------------------------------
 // Fonction pour cibler les navires de l'ordinateur
@@ -728,7 +732,7 @@ const addSoundEffect = (sound, volume) => {
 
 const targetEnnemyShip = async (cell) => {
   if (!cell.classList.contains("deactivated")) {
-    addSoundEffect("./Media/cannon-fire.mp3",0.4)
+    addSoundEffect("./Media/cannon-fire.mp3", 0.4);
     document.getElementById(
       "msg-box"
     ).innerText = `Vous visez l'emplacement ${cell.name}.`;
@@ -740,12 +744,12 @@ const targetEnnemyShip = async (cell) => {
     setTimeout(() => {
       if (cell.classList.contains("occupied")) {
         cell.classList.add("hit");
-        addSoundEffect("./Media/explosion.mp3",0.5)
+        addSoundEffect("./Media/explosion.mp3", 0.4);
         document.getElementById("msg-box").innerText += `\nTouché !`;
         cell.style.backgroundColor = "red";
       } else {
         cell.classList.add("missed");
-        addSoundEffect("./Media/water-explosion.mp3",0.5)
+        addSoundEffect("./Media/water-explosion.mp3", 0.4);
         document.getElementById("msg-box").innerText += `\nManqué !`;
         cell.style.backgroundColor = "lightblue";
       }
@@ -754,15 +758,25 @@ const targetEnnemyShip = async (cell) => {
       if (ennemyBoard.querySelectorAll("td.hit").length === 30) {
         return scenario("Player victory");
       } else {
-        setTimeout(
-          () => computerTurn(document.getElementById("msg-box")),
-          3500
-        );
+        setTimeout(() => {
+          computerTurn(document.getElementById("msg-box"));
+          addSoundEffect("./Media/shot-away.mp3", 1);
+        }, 3500);
+        setTimeout(()=>{
+          const hitOrMissed = JSON.parse(sessionStorage.getItem("hitOrMissed"))
+          if (hitOrMissed===true){
+            addSoundEffect("./Media/explosion.mp3", 0.4);
+          } else {addSoundEffect("./Media/water-explosion.mp3", 0.4);}
+        },6500)
         setTimeout(() => {
           document
             .getElementById("ennemy-board")
             .querySelectorAll("td:not(.hit)")
-            .forEach((cell) => {if(!cell.classList.contains("missed")){cell.classList.remove("deactivated")}});
+            .forEach((cell) => {
+              if (!cell.classList.contains("missed")) {
+                cell.classList.remove("deactivated");
+              }
+            });
           if (myBoard.querySelectorAll("td.hit, td.sunk").length === 30) {
             return scenario("Computer victory");
           }
