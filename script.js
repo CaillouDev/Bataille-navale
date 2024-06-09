@@ -321,7 +321,7 @@ const computerTurn = async (box) => {
       target.style.backgroundColor = "red";
       target.classList.add("hit");
       box.innerText += `\nTouché !`;
-      addSoundEffect("./Media/explosion.mp3", 0.5);
+      addSoundEffect("./Media/explosion.mp3", 0.2);
     } else {
       target.style.backgroundColor = "lightblue";
       box.innerText += `\nRaté !`;
@@ -728,7 +728,7 @@ const addSoundEffect = (sound, volume) => {
 
 const targetEnnemyShip = async (cell) => {
   if (!cell.classList.contains("deactivated")) {
-    addSoundEffect("./Media/cannon-fire.mp3", 0.4);
+    addSoundEffect("./Media/cannon-fire.mp3", 0.2);
     document.getElementById(
       "msg-box"
     ).innerText = `Vous visez l'emplacement ${cell.name}.`;
@@ -740,7 +740,7 @@ const targetEnnemyShip = async (cell) => {
     setTimeout(() => {
       if (cell.classList.contains("occupied")) {
         cell.classList.add("hit");
-        addSoundEffect("./Media/explosion.mp3", 0.4);
+        addSoundEffect("./Media/explosion.mp3", 0.2);
         document.getElementById("msg-box").innerText += `\nTouché !`;
         cell.style.backgroundColor = "red";
       } else {
@@ -851,7 +851,7 @@ const scenario = (w) => {
         .querySelectorAll("td")
         .forEach((cell) => cell.classList.add("deactivated"));
       gameInfo.classList.remove("hidden");
-      msgBox.innerText = "";
+      document.getElementById("msg-box").innerText = "";
       gameInfo.innerText = `L'écho de votre dernier tir résonne encore et seul le silence lui répond.\nVous quittez le champ de bataille alors que les derniers navires ennemis sombrent.`;
       break;
     case "Computer victory":
@@ -859,7 +859,7 @@ const scenario = (w) => {
         .querySelectorAll("td")
         .forEach((cell) => cell.classList.add("deactivated"));
       gameInfo.classList.remove("hidden");
-      msgBox.innerText = "";
+      document.getElementById("msg-box").innerText = "";
       gameInfo.innerText = `Un dernier tir s'abat sur votre unique navire survivant : c'en est fini.\nLe silence retombe calmement sur les eaux agitées.`;
       break;
   }
