@@ -743,6 +743,9 @@ const targetEnnemyShip = async (cell) => {
         addSoundEffect("./Media/explosion.mp3", 0.2);
         document.getElementById("msg-box").innerText += `\nTouché !`;
         cell.style.backgroundColor = "red";
+        if (ennemyBoard.querySelectorAll("td.hit").length === 30) {
+          return scenario("Player victory");
+        }
       } else {
         cell.classList.add("missed");
         addSoundEffect("./Media/water-explosion.mp3", 0.4);
@@ -751,9 +754,9 @@ const targetEnnemyShip = async (cell) => {
       }
     }, 3000);
     setTimeout(() => {
-      if (ennemyBoard.querySelectorAll("td.hit").length === 30) {
+      /*if (ennemyBoard.querySelectorAll("td.hit").length === 30) {
         return scenario("Player victory");
-      } else {
+      } else {*/
         setTimeout(
           () => computerTurn(document.getElementById("msg-box")),
           3500
@@ -771,7 +774,7 @@ const targetEnnemyShip = async (cell) => {
             return scenario("Computer victory");
           }
         }, 6500);
-      }
+      // }
     }, 2000);
   }
 };
